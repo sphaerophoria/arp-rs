@@ -25,7 +25,7 @@ pub fn get_arp_table() -> io::Result<Vec<ArpEntry>> {
         let mut line_components = line.split_whitespace();
 
         let ip_str = line_components.nth(0).ok_or(io::Error::new(io::ErrorKind::InvalidData, "Could not find ip"))?;
-        let mac_str = line_components.nth(3).ok_or(io::Error::new(io::ErrorKind::InvalidData, "Coudl not find mac"))?;
+        let mac_str = line_components.nth(2).ok_or(io::Error::new(io::ErrorKind::InvalidData, "Coudl not find mac"))?;
 
         let ip =
             ip_str.parse::<IpAddr>()
