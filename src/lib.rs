@@ -1,14 +1,14 @@
-extern crate hwaddr;
+extern crate pnet;
 
 use std::net::IpAddr;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
 use std::error::Error;
-use hwaddr::HwAddr;
+pub use pnet::util::MacAddr;
 
 pub struct ArpEntry {
     pub ip: IpAddr,
-    pub mac: HwAddr,
+    pub mac: MacAddr,
 }
 
 const ARP_FILENAME: &'static str = "/proc/net/arp";
@@ -31,8 +31,8 @@ pub fn get_arp_table() -> io::Result<Vec<ArpEntry>> {
             ip_str.parse::<IpAddr>()
                 .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e.description().to_string()))?;
         let mac =
-            mac_str.parse::<HwAddr>()
-                .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e.description().to_string()))?;
+            mac_str.parse::<MacAddr>()
+                .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, format!("{:?}", e)))?;
 
         ret.push(ArpEntry { ip, mac })
     }
