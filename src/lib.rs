@@ -1,10 +1,10 @@
-extern crate pnet;
+extern crate eui48;
 
 use std::net::IpAddr;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
 use std::error::Error;
-pub use pnet::util::MacAddr;
+pub use eui48::MacAddress as MacAddr;
 
 pub struct ArpEntry {
     pub ip: IpAddr,
